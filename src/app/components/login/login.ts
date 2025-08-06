@@ -4,6 +4,7 @@ import { Header } from '../header/header';
 
 @Component({
   selector: 'login',
+  standalone: true,
   imports: [ReactiveFormsModule, Header],
   templateUrl: './login.html',
   styleUrl: './login.scss'
