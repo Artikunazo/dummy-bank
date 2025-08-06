@@ -1,0 +1,10 @@
+<section>
+  <app-header />
+  <form [formGroup]="loginForm">
+    <input type="text" placeholder="Username" formControlName="username" />
+    <input type="password" placeholder="Password" formControlName="password" />
+    <button type="button" (click)="onSubmit()">Login</button>
+  </form>
+
+  <p>Forgot your password? <a routerLink="/forgot-password">Forgot Password</a></p>
+</section>
