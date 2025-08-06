@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Header } from '../header/header';
 
 @Component({
@@ -10,8 +10,10 @@ import { Header } from '../header/header';
   styleUrl: './forgot-password.scss'
 })
 export class ForgotPassword {
-  forgotPasswordForm = new FormGroup({
-    username: new FormControl(''),
+  private readonly formBuilder = inject(FormBuilder);
+  
+  forgotPasswordForm = this.formBuilder.group({
+    username: ['', Validators.required],
   });
 
   onSubmit() {
