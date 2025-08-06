@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Header } from '../header/header';
+import { UserService } from '../../services/user';
 
 @Component({
   selector: 'login',
@@ -10,9 +11,12 @@ import { Header } from '../header/header';
   styleUrl: './login.scss'
 })
 export class Login {
-  loginForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly userService = inject(UserService);
+
+  loginForm = this.formBuilder.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
   });
 
   ngOnInit() {
