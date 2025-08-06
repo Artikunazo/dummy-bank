@@ -1,8 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { IUser } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class User {
-  
+export class UserService {
+  userState = signal<IUser>({
+    username: '',
+    password: '',
+    products: []
+  });
 }
