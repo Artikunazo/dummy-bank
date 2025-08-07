@@ -17,7 +17,7 @@ export class UserService {
       type: 'account',
       balance: parseFloat((Math.random() * 100000).toFixed(2)),
       clabe: "1234567789098765432",
-          accountNumber: 1234567890,
+      accountNumber: 1234567890,
       card: {
         placeholder: '',
         number: '1234 5678 9012 3456',
@@ -33,7 +33,6 @@ export class UserService {
       balance: parseFloat((Math.random() * 10000).toFixed(2)),
       clabe: "098765432112345678",
       accountNumber: 1234567890,
-
       card: {
         placeholder: '',
         number: '2345 6789 0123 4567',

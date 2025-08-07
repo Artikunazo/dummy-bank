@@ -5,8 +5,17 @@ import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   imports: [Products, MyBank],
-  templateUrl: './dashboard.html',
+  template: `
+    <section class="dashboard-container container">
+      <h2>Welcome {{username}}! </h2>
+      
+      <app-my-bank />
+
+      <app-products />
+    </section>
+  `,
   styleUrl: './dashboard.scss'
 })
 export class Dashboard {

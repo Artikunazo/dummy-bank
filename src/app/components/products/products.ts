@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ProductService } from '../../services/product';
+import { IProduct } from '../../models/products';
 
 @Component({
   selector: 'app-products',
@@ -11,12 +12,11 @@ import { ProductService } from '../../services/product';
         <div class="product">
           <h3>{{product.name}}</h3>
           <p>{{product.description}}</p>
-          <p>Type: {{product.type}}</p>
           @if (product.accountNumber) {
             <p>Account Number: {{product.accountNumber}}</p>
-          } @else {
-            <p>No associated account number.</p>
           }
+
+          <button (click)="signOn(product)">sign On!</button>
         </div>
       }
     </section>
@@ -27,4 +27,8 @@ export class Products {
   private readonly productService = inject(ProductService);
   protected readonly productsData = this.productService.products();
 
+
+  signOn(product: IProduct) {
+    this.productService.signOn(product);
+  }
 }
