@@ -31,15 +31,5 @@ export class ProductService {
       description: 'Car credit description',
       type: 'investment'
     },
-    {
-      name: 'Nomina',
-      description: 'Car credit description',
-      type: 'account',
-    },
-    {
-      name: 'Cheques',
-      description: 'Car credit description',
-      type: 'account',
-    },
   ]).asReadonly();
 }
