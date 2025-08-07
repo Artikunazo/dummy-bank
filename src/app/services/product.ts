@@ -7,13 +7,13 @@ import { IProduct } from '../models/products';
 export class ProductService {
   readonly products = signal<IProduct[]>([
     {
-      name: 'Car Credit',
-      description: 'Car credit description',
+      name: 'Car loan',
+      description: 'Car loan description',
       type: 'credit'
     },
     {
-      name: 'House Credit',
-      description: 'Car credit description',
+      name: 'Mortgage credit',
+      description: 'Mortgage credit description',
       type: 'credit'
     },
     {
@@ -22,13 +22,8 @@ export class ProductService {
       type: 'credit'
     },
     {
-      name: 'Savings',
-      description: 'Savings description',
-      type: 'invsetment'
-    },
-    {
-      name: 'Inversion a plazo',
-      description: 'Car credit description',
+      name: 'Term investments',
+      description: 'Term investments description',
       type: 'investment'
     },
   ]).asReadonly();
