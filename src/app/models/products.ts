@@ -3,6 +3,7 @@ export interface IProduct {
   name: string;
   description: string;
   type: string;
+  creditType?: string | null;
   balance?: number | null;
   card?: ICard | null;
   clabe?: string | null;

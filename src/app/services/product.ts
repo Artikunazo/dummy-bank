@@ -16,6 +16,7 @@ export class ProductService {
       name: 'Car loan',
       description: 'Car loan description',
       type: 'credit',
+      creditType: 'auto',
       accountNumber: null
     },
     {
@@ -23,7 +24,8 @@ export class ProductService {
       accountNumber: null,
       name: 'Mortgage credit',
       description: 'Mortgage credit description',
-      type: 'credit'
+      type: 'credit',
+      creditType: 'mortgage',
     },
     {
       id: uuidv4(),
@@ -31,14 +33,15 @@ export class ProductService {
       description: 'Car credit description',
       type: 'credit',
       accountNumber: null,
+      creditType: 'card',
     },
-    {
-      id: uuidv4(),
-      name: 'Term investments',
-      description: 'Term investments description',
-      type: 'investment',
-      accountNumber: null,
-    },
+    // {
+    //   id: uuidv4(),
+    //   name: 'Term investments',
+    //   description: 'Term investments description',
+    //   type: 'investment',
+    //   accountNumber: null,
+    // },
   ])
 
 
@@ -46,8 +49,21 @@ export class ProductService {
     const user = this.userService.userState();
 
     // Logic to assign a random balance based on type of product
-    product.balance = this.getRandomLoan(1000000);
-
+    if(product.type === 'credit') {
+      switch(product.creditType){
+        case 'auto':
+          product.balance = this.getRandomLoan(100000);
+          break;
+        case 'mortgage':
+          product.balance = this.getRandomLoan(10000000);
+          break;
+        case 'card':
+          product.balance = this.getRandomLoan(10000);
+          break;
+        default:
+          product.balance = 0;
+      }
+    }
 
     const updatedProducts = [...user.products, product];
 
