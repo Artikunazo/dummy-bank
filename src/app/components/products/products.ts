@@ -8,7 +8,7 @@ import { IProduct } from '../../models/products';
   imports: [],
   template: `
     <section class="products-container">
-      @for (product of productsData; track product.id) {
+      @for (product of productsData(); track product.id) {
         <div class="product">
           <h3>{{product.name}}</h3>
           <p>{{product.description}}</p>
@@ -25,7 +25,7 @@ import { IProduct } from '../../models/products';
 })
 export class Products {
   private readonly productService = inject(ProductService);
-  protected readonly productsData = this.productService.products();
+  protected readonly productsData = this.productService.products;
 
 
   signOn(product: IProduct) {

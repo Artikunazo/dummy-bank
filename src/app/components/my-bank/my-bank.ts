@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { UserService } from '../../services/user';
 import { CurrencyPipe } from '@angular/common';
 
@@ -9,7 +9,7 @@ import { CurrencyPipe } from '@angular/common';
   template: `
     <section>
       <div class="border-1">
-        @for (item of userData.products; track item.id) {
+        @for (item of userProducts(); track item.id) {
           <div class="product-item">
             <h3>{{item.name}}</h3>
             <p>Type: {{item.type}}</p>
@@ -31,6 +31,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class MyBank {
   private readonly userService = inject(UserService);
-  protected readonly userData = this.userService.userState();
+  protected readonly userData = this.userService.userState;
 
+  userProducts = computed(() => this.userData().products);
 }
