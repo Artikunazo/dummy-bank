@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Header } from '../header/header';
 import { UserService } from '../../services/user';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
-export class Login {
+export class Login implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly userService = inject(UserService);
   private readonly router = inject(Router)
@@ -21,6 +21,12 @@ export class Login {
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
+
+  ngOnInit() {
+    if (this.userService.userState().username) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   onSubmit() {
     this.userService.userState.update((user: IUser) => ({
