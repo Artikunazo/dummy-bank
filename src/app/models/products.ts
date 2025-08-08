@@ -16,3 +16,15 @@ export interface ICard {
   expiry: string;
   cvv: string;
 }
+
+export enum CreditType {
+  Auto = 'auto',
+  Mortgage = 'mortgage',
+  Card = 'card'
+}
+
+export enum BaseBalance {
+  Auto = 100000,
+  Mortgage = 10000000,
+  Card = 10000
+}

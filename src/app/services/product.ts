@@ -1,8 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { IProduct } from '../models/products';
+import { BaseBalance, CreditType, IProduct } from '../models/products';
 import { v4 as uuidv4 } from 'uuid';
 import { UserService } from './user';
-import { filter } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class ProductService {
       name: 'Car loan',
       description: 'Car loan description',
       type: 'credit',
-      creditType: 'auto',
+      creditType: CreditType.Auto,
       accountNumber: null
     },
     {
@@ -25,7 +24,7 @@ export class ProductService {
       name: 'Mortgage credit',
       description: 'Mortgage credit description',
       type: 'credit',
-      creditType: 'mortgage',
+      creditType: CreditType.Mortgage,
     },
     {
       id: uuidv4(),
@@ -33,39 +32,17 @@ export class ProductService {
       description: 'Car credit description',
       type: 'credit',
       accountNumber: null,
-      creditType: 'card',
+      creditType: CreditType.Card,
     },
-    // {
-    //   id: uuidv4(),
-    //   name: 'Term investments',
-    //   description: 'Term investments description',
-    //   type: 'investment',
-    //   accountNumber: null,
-    // },
-  ])
+  ]);
 
 
   signOn(product: IProduct) {
-    const user = this.userService.userState();
+    const user = this.userService.userState;
 
-    // Logic to assign a random balance based on type of product
-    if(product.type === 'credit') {
-      switch(product.creditType){
-        case 'auto':
-          product.balance = this.getRandomLoan(100000);
-          break;
-        case 'mortgage':
-          product.balance = this.getRandomLoan(10000000);
-          break;
-        case 'card':
-          product.balance = this.getRandomLoan(10000);
-          break;
-        default:
-          product.balance = 0;
-      }
-    }
+    product.balance = this.getProductBalance(product);
 
-    const updatedProducts = [...user.products, product];
+    const updatedProducts = [...user().products, product];
 
     this.userService.userState.update((currentUser) => ({
       ...currentUser,
@@ -73,9 +50,21 @@ export class ProductService {
     }));
 
     this.products.update((currentProducts) => [...currentProducts.filter((currentProduct) => currentProduct.id !== product.id)]);
-    
-    // Optionally, you can navigate to a different page or show a success message
-    console.log(`Signed on to product: ${product.name}`);
+  }
+
+  getProductBalance(product: IProduct): number {
+    if (product.type !== 'credit') return 0;
+
+    switch (product.creditType) {
+      case CreditType.Auto:
+        return this.getRandomLoan(BaseBalance.Auto);
+      case CreditType.Mortgage:
+        return this.getRandomLoan(BaseBalance.Mortgage);
+      case CreditType.Card:
+        return this.getRandomLoan(BaseBalance.Card);
+      default:
+        return 0;
+    }
   }
 
   getRandomLoan(length: number) {
