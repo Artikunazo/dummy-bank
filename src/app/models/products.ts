@@ -1,3 +1,5 @@
+import { min } from "rxjs";
+
 export interface IProduct {
   id: string; // Unique identifier for the product
   name: string;
@@ -23,8 +25,17 @@ export enum CreditType {
   Card = 'card'
 }
 
-export enum BaseBalance {
-  Auto = 100000,
-  Mortgage = 10000000,
-  Card = 10000
-}
+export const BaseBalance = {
+  Auto: {
+    min: 10000,
+    max: 100000
+  },
+  Mortgage: {
+    min: 100000,
+    max: 10000000
+  },
+  Card: {
+    min: 1000,
+    max: 10000
+  }
+};

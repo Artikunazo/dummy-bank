@@ -57,17 +57,17 @@ export class ProductService {
 
     switch (product.creditType) {
       case CreditType.Auto:
-        return this.getRandomLoan(BaseBalance.Auto);
+        return this.calculateLoan(BaseBalance.Auto.min, BaseBalance.Auto.max);
       case CreditType.Mortgage:
-        return this.getRandomLoan(BaseBalance.Mortgage);
+        return this.calculateLoan(BaseBalance.Mortgage.min, BaseBalance.Mortgage.max);
       case CreditType.Card:
-        return this.getRandomLoan(BaseBalance.Card);
+        return this.calculateLoan(BaseBalance.Card.min, BaseBalance.Card.max);
       default:
         return 0;
     }
   }
 
-  getRandomLoan(length: number) {
-    return parseFloat((Math.random() * length).toFixed(2));
+  calculateLoan(min: number, max: number) {
+    return parseFloat((Math.random() * (max - min) + min).toFixed(2));
   }
 }
