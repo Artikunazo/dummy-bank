@@ -1,13 +1,13 @@
 <section class="grid grid-cols-1">
   <app-header class="col-start-1" />
 
-  <div class="col-start-1 flex flex-col">
-    <form [formGroup]="loginForm">
-      <input type="text" placeholder="Username" formControlName="username" />
-      <input type="password" placeholder="Password" formControlName="password" />
-      <button class="" type="button" (click)="onSubmit()">Login</button>
+  <div class="col-start-1 ">
+    <form [formGroup]="loginForm" class="flex flex-col items-center justify-center">
+      <input pInputText class="w-100 mb-3" type="text" placeholder="Username" formControlName="username" />
+      <input pInputText class="w-100 mb-3" type="password" placeholder="Password" formControlName="password" />
+      <button pButton class="w-50" type="button" (click)="onSubmit()">Login</button>
     </form>
 
-    <p class="mt-4 col-start-1">Forgot your password? <a routerLink="/forgot-password">Forgot Password</a></p>
+    <p class="mt-4 col-start-1 text-xs">Forgot your password? <a routerLink="/forgot-password" class="text-blue">Forgot Password</a></p>
   </div>
 </section>

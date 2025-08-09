@@ -4,11 +4,13 @@ import { Header } from './header/header';
 import { UserService } from '../services/user';
 import { IUser } from '../models/user';
 import { Router } from '@angular/router';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [ReactiveFormsModule, Header],
+  imports: [ReactiveFormsModule, Header, InputTextModule, ButtonModule],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
