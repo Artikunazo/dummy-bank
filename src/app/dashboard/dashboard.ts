@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Products } from "../products/products";
-import { MyBank } from "../my-bank/my-bank";
-import { UserService } from '../../services/user';
+import { Products } from "./products/products";
+import { MyBank } from "./my-bank/my-bank";
+import { UserService } from '../services/user';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,16 +19,8 @@ import { Router } from '@angular/router';
   `,
   styleUrl: './dashboard.scss'
 })
-export class Dashboard implements OnInit {
+export class Dashboard {
   private readonly userService = inject(UserService);
-  private readonly router = inject(Router);
 
   readonly username = this.userService.userState().username;
-
-  ngOnInit() {
-    if (!this.username) {
-      this.router.navigate(['/']);
-    }
-  }
-
 }
