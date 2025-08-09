@@ -1,26 +1,30 @@
 import { Routes } from '@angular/router';
-import { Login } from './components/login/login';
-import { ForgotPassword } from './components/forgot-password/forgot-password';
+import { Login } from './login/login';
+import { ForgotPassword } from './forgot-password/forgot-password';
+import { userGuard, userLoggedGuard } from './guards/user-guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: Login,
+    canActivate: [userLoggedGuard],
   },
   {
     path: 'forgot-password',
     component: ForgotPassword,
+    canActivate: [userLoggedGuard],
   },
   {
     path: 'dashboard',
+    canActivate: [userGuard],
     children: [
       {
         path: '',
-        loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard),
+        loadComponent: () => import('./dashboard/dashboard').then(component => component.Dashboard),
       },
       {
         path: 'user-profile',
-        loadComponent: () => import('./components/user-profile/user-profile').then(c => c.UserProfile),
+        loadComponent: () => import('./user-profile/user-profile').then(component => component.UserProfile),
       }
     ]
   }
