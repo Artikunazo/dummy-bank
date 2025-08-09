@@ -24,7 +24,7 @@ export const routes: Routes = [
       },
       {
         path: 'user-profile',
-        loadComponent: () => import('./user-profile/user-profile').then(component => component.UserProfile),
+        loadComponent: () => import('./dashboard/user-profile/user-profile').then(component => component.UserProfile),
       }
     ]
   }
