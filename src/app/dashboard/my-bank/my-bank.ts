@@ -7,24 +7,23 @@ import { CurrencyPipe } from '@angular/common';
   standalone: true,
   imports: [CurrencyPipe],
   template: `
-    <section>
-      <div class="border-1">
-        @for (item of userProducts(); track item.id) {
-          <div class="product-item">
-            <h3>{{item.name}}</h3>
-            <p>Type: {{item.type}}</p>
-            <p>Balance: {{item.balance ?? 0 | currency}}</p>
-            @if (item.card) {
-              <div class="card-details">
-                <p>Card Number: {{item.card.number}}</p>
-                <p>Expiration date: {{item.card.expiry}}</p>
-                <p>CVV: {{item.card.cvv}}</p> 
-                <!-- @ToDo: toggle cvv. Nice to have: generate cvv dynamically -->
-              </div>
-            }
-          </div>
-        }
-      </div>
+    <section class="p-3 mb-8">
+        <p>Your bank products:</p>
+        <div class="flex">
+          @for (item of userProducts(); track item.id) {
+            <div class="product-item shadow-lg outline outline-black/5 mr-4 p-4 rounded-xl">
+              <h3 class="text-lg flex justify-between">{{item.name}} <span class="text-right">{{item.balance ?? 0 | currency}}</span></h3>
+              @if (item.card) {
+                <div class="card-details mt-4">
+                  <p>Card Number: {{item.card.number}}</p>
+                  <p>Expiration date: {{item.card.expiry}}</p>
+                  <p>CVV: {{item.card.cvv}}</p> 
+                  <!-- @ToDo: toggle cvv. Nice to have: generate cvv dynamically -->
+                </div>
+              }
+            </div>
+          }
+        </div>
     </section>
   `,
   styleUrl: './my-bank.scss'
