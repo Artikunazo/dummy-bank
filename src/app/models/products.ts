@@ -17,6 +17,7 @@ export interface ICard {
   number: string;
   expiry: string;
   cvv: string;
+  isLocked?: boolean;
 }
 
 export enum CreditType {
