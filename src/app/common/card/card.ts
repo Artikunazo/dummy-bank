@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
 	standalone: true,
 	imports: [],
 	template: `
-		<div class="shadow-lg outline outline-black/5 mr-4 p-4 rounded-xl">
+		<div class="shadow-md outline outline-black/1 p-4 rounded-lg">
 			<ng-content></ng-content>
 		</div>
 	`,
