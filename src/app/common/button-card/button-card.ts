@@ -1,15 +1,19 @@
 import {Component, computed, input, output} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+
 
 @Component({
 	selector: 'app-button-card',
   standalone: true,
-	imports: [ButtonModule],
+	imports: [ButtonModule, TooltipModule],
 	template: `
 		<button
 			class="cursor-pointer btn btn-primary mt-2"
 			[attr.title]="buttonAttrTitle()"
       (click)="handleClick()"
+      pTooltip="{{ buttonAttrTitle() }}"
+      tooltipPosition="bottom"
 		>
 			<svg class="w-6 h-6 card-icon">
 				<use [attr.href]="hrefSvgUse()" />

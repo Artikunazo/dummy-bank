@@ -1,14 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, input, signal} from '@angular/core';
+import { CardModule } from 'primeng/card';
+
 
 @Component({
 	selector: 'app-card',
 	standalone: true,
-	imports: [],
+	imports: [CardModule],
 	template: `
-		<div class="shadow-md outline outline-black/1 p-4 rounded-lg">
+		<p-card header="{{header()}}" subheader="{{subheader()}}">
 			<ng-content></ng-content>
-		</div>
+
+			<p-footer>
+				<ng-content select="[footer]"></ng-content>
+			</p-footer>
+		</p-card>
 	`,
 	styleUrl: './card.css',
 })
-export class Card {}
+export class Card {
+  header = input.required<string>();
+  subheader = input.required<string | null>();
+
+}
