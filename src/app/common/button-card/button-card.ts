@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 	imports: [ButtonModule],
 	template: `
 		<button
-			class="btn btn-primary mt-2 cursor-pointer"
+			class="cursor-pointer btn btn-primary mt-2"
 			[attr.title]="buttonAttrTitle()"
       (click)="handleClick()"
 		>
@@ -26,7 +26,7 @@ export class ButtonCard {
   hrefSvgUse = computed(() => `/assets/${this.buttonIconName()}.svg`);
 
   handleClick() {
-    console.log('Button clicked:', this.buttonAttrTitle());
+    // console.log('Button clicked:', this.buttonAttrTitle());
     this.buttonClick.emit();
   }
 }
