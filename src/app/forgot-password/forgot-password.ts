@@ -1,22 +1,28 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Header } from '../login/header/header';
+import {Component, inject} from '@angular/core';
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	ReactiveFormsModule,
+	Validators,
+} from '@angular/forms';
+import {Header} from '../login/header/header';
 
 @Component({
-  selector: 'app-forgot-password',
-  standalone: true,
-  imports: [ReactiveFormsModule, Header],
-  templateUrl: './forgot-password.html',
-  styleUrl: './forgot-password.css'
+	selector: 'app-forgot-password',
+	standalone: true,
+	imports: [ReactiveFormsModule, Header],
+	templateUrl: './forgot-password.html',
+	styleUrl: './forgot-password.css',
 })
 export class ForgotPassword {
-  private readonly formBuilder = inject(FormBuilder);
-  
-  forgotPasswordForm = this.formBuilder.group({
-    username: ['', Validators.required],
-  });
+	private readonly formBuilder = inject(FormBuilder);
 
-  onSubmit() {
-    console.log(this.forgotPasswordForm.value);
-  }
+	forgotPasswordForm = this.formBuilder.group({
+		username: ['', Validators.required],
+	});
+
+	onSubmit() {
+		console.log(this.forgotPasswordForm.value);
+	}
 }

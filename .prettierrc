@@ -1,0 +1,19 @@
+{
+	"printWidth": 80,
+	"tabWidth": 2,
+	"useTabs": true,
+	"singleQuote": true,
+	"trailingComma": "all",
+	"bracketSpacing": false,
+	"arrowParens": "always",
+	"proseWrap": "always",
+	"endOfLine": "crlf",
+	"overrides": [
+		{
+			"files": ["**/*.html"],
+			"options": {
+				"printWidth": 60
+			}
+		}
+	]
+}
