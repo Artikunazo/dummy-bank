@@ -11,7 +11,7 @@ import { CurrencyPipe } from '@angular/common';
         <p>Your bank products:</p>
         <div class="flex">
           @for (item of userProducts(); track item.id) {
-            <div class="product-item shadow-lg outline outline-black/5 mr-4 p-4 rounded-xl">
+            <div class="product-item">
               <h3 class="text-lg flex justify-between">{{item.name}} <span class="text-right">{{item.balance ?? 0 | currency}}</span></h3>
               @if (item.card) {
                 <div class="card-details mt-4">
@@ -26,7 +26,7 @@ import { CurrencyPipe } from '@angular/common';
         </div>
     </section>
   `,
-  styleUrl: './my-bank.scss'
+  styleUrl: './my-bank.css'
 })
 export class MyBank {
   private readonly userService = inject(UserService);

@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
   standalone: true,
   imports: [ReactiveFormsModule, Header, InputTextModule, ButtonModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.css'
 })
 export class Login {
   private readonly formBuilder = inject(FormBuilder);

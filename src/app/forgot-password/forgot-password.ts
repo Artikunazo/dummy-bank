@@ -7,7 +7,7 @@ import { Header } from '../login/header/header';
   standalone: true,
   imports: [ReactiveFormsModule, Header],
   templateUrl: './forgot-password.html',
-  styleUrl: './forgot-password.scss'
+  styleUrl: './forgot-password.css'
 })
 export class ForgotPassword {
   private readonly formBuilder = inject(FormBuilder);

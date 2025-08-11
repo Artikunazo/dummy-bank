@@ -16,7 +16,7 @@ import { UserService } from '../services/user';
       <app-products />
     </section>
   `,
-  styleUrl: './dashboard.scss'
+  styleUrl: './dashboard.css'
 })
 export class Dashboard {
   private readonly userService = inject(UserService);

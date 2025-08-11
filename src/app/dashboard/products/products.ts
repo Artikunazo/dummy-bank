@@ -21,7 +21,7 @@ import { IProduct } from '../../models/products';
       }
     </section>
   `,
-  styleUrl: './products.scss'
+  styleUrl: './products.css'
 })
 export class Products {
   private readonly productService = inject(ProductService);
