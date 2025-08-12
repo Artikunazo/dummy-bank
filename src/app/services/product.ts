@@ -49,6 +49,7 @@ export class ProductService {
 	]);
 
 	signOn(product: IProduct) {
+    // console.log(product);
 		const user = this.userService.userState;
 
 		product.balance = this.getProductBalance(product);
