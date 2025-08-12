@@ -10,6 +10,10 @@ export interface IProduct {
 	card?: ICard | null;
 	clabe?: string | null;
 	accountNumber: number | null; // Optional, if applicable
+  banner?: {
+    main: string;
+    backup: string;
+  };
 }
 
 export interface ICard {

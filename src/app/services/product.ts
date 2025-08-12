@@ -17,6 +17,10 @@ export class ProductService {
 			type: 'credit',
 			creditType: CreditType.Auto,
 			accountNumber: null,
+      banner: {
+        main: '/assets/products/car-loan.avif',
+        backup: '/assets/products/car-loan.jpg'
+      }
 		},
 		{
 			id: uuidv4(),
@@ -25,6 +29,10 @@ export class ProductService {
 			description: 'Mortgage credit description',
 			type: 'credit',
 			creditType: CreditType.Mortgage,
+      banner: {
+        main: '/assets/products/mortgage.avif',
+        backup: '/assets/products/mortgage.jpg'
+      }
 		},
 		{
 			id: uuidv4(),
@@ -33,6 +41,10 @@ export class ProductService {
 			type: 'credit',
 			accountNumber: null,
 			creditType: CreditType.Card,
+      banner: {
+        main: '/assets/products/credit-card.avif',
+        backup: '/assets/products/credit-card.jpg'
+      }
 		},
 	]);
 
