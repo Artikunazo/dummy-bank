@@ -16,29 +16,6 @@ type productTypes = ICreditCard | ICarLoan | IMortgageCredit;
 export class ProductService {
 	private readonly userService = inject(UserService);
 
-	// carLoans = signal<ICarLoan[]>([
-	//   {
-	//     id: uuidv4(),
-	//     name: 'Car loan',
-	//     description: 'Car loan description',
-	//     type: 'credit',
-	//     creditType: CreditType.Auto,
-	//     accountNumber: null,
-	//     banner: {
-	//       main: '/assets/products/car-loan.avif',
-	//       backup: '/assets/products/car-loan.jpg'
-	//     },
-	//     headline: '',
-	//     rate: 0,
-	//     balance: 0
-	//   }
-	// ]);
-
-	// mortgageCredits = signal<IMortgageCredit[]>([]);
-	// creditCards = signal<ICreditCard[]>([]);
-
-	// products = signal<productTypes[]>([...this.carLoans(), ...this.mortgageCredits(), ...this.creditCards()]);
-
 	products = signal<IProduct[]>([
 		{
 			id: uuidv4(),
@@ -74,24 +51,6 @@ export class ProductService {
       url: '/dashboard/credit-card',
 		},
 	]);
-
-  // creditCards = signal<ICreditCard[]>([
-  //   {
-  //     id: uuidv4(),
-  //     name: 'Card Credit',
-  //     description: 'Car credit description',
-  //     type: 'credit',
-  //     banner: {
-  //       main: '/assets/products/credit-card.avif',
-  //       backup: '/assets/products/credit-card.jpg',
-  //     },
-  //     headline: 'Get your card today',
-  //     rate: 0,
-  //     creditType: CreditType.Card,
-  //     cashback: 0,
-  //     annualFee: 0,
-  //   },
-  // ]);
 
 	signOn(product: IProduct) {
 		// console.log(product);
