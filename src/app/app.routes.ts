@@ -26,6 +26,28 @@ export const routes: Routes = [
 					),
 			},
 			{
+				path: 'mortgage',
+				loadComponent: () =>
+					import('./dashboard/mortgages/mortgages').then(
+						(component) => component.Mortgages,
+					),
+			},
+			{
+				path: 'car-loan',
+				loadComponent: () =>
+					import('./dashboard/car-loan/car-loan').then(
+						(component) => component.CarLoan,
+					),
+			},
+			{
+				path: 'credit-card',
+				loadComponent: () =>
+					import('./dashboard/credit-card/credit-card').then(
+						(component) => component.CreditCard,
+					),
+			},
+
+			{
 				path: 'user-profile',
 				loadComponent: () =>
 					import('./dashboard/user-profile/user-profile').then(

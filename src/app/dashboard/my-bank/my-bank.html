@@ -1,42 +1,91 @@
 <section class="mb-6 @container">
   <div class="flex flex-col @md:flex-row gap-6 flex-wrap">
     @for (item of userProducts(); track item.id) {
-      <app-card [header]="item.name" [subheader]="item.balance | currency" class="w-1/3 @max-lg:w-full @md:gap-4">
-        <div footer class="card-footer mt-6">
-          <div class="card-footer flex justify-between gap-4">
-            <app-button-card
-              [buttonAttrTitle]="'Deposit funds'"
-              [buttonIconName]="'deposit-funds'"
-            />
-
-           @if(item.type !== 'credit') {
-              <app-button-card
-                [buttonAttrTitle]="'Withdraw funds'"
-                [buttonIconName]="'withdraw-funds'"
-              />
-            }
-
-            @if (item.card) {
-              <app-button-card
-                [buttonAttrTitle]="'View card details'"
-                [buttonIconName]="'credit-card'"
-                (buttonClick)="viewCardDetails(item.card)"
-              />
-<!--
-              <app-button-card
-                [buttonAttrTitle]="!item.card.isLocked ? 'Unlock card' : 'Lock card'"
-                [buttonIconName]="!item.card.isLocked ? 'unlock' : 'lock'"
-              /> -->
-            }
-
-             <app-button-card
-                [buttonAttrTitle]="'Share account information'"
-                [buttonIconName]="'share'"
-              />
-
-          </div>
-        </div>
-      </app-card>
+     @switch (item.productType) {
+       @case('payroll') {
+         <ng-container *ngTemplateOutlet="payrollTemplate; context: {$implicit: item}"></ng-container>
+       }
+       @case( 'checking'){
+         <ng-container *ngTemplateOutlet="checkingTemplate; context: {$implicit: item}"></ng-container>
+       }
+     }
     }
   </div>
 </section>
+
+<ng-template let-item #payrollTemplate>
+  <app-card [header]="item.name" [subheader]="item.balance | currency" class="w-1/3 @max-lg:w-full @md:gap-4">
+    <div footer class="card-footer mt-6">
+      <div class="card-footer flex justify-between gap-4">
+        <app-button-card
+          [buttonAttrTitle]="'Deposit funds'"
+          [buttonIconName]="'deposit-funds'"
+        />
+
+        @if(item.type !== 'credit') {
+          <app-button-card
+            [buttonAttrTitle]="'Withdraw funds'"
+            [buttonIconName]="'withdraw-funds'"
+          />
+        }
+
+        @if (item.card) {
+          <app-button-card
+            [buttonAttrTitle]="'View card details'"
+            [buttonIconName]="'credit-card'"
+            (buttonClick)="viewCardDetails(item.card)"
+          />
+  <!--
+          <app-button-card
+            [buttonAttrTitle]="!item.card.isLocked ? 'Unlock card' : 'Lock card'"
+            [buttonIconName]="!item.card.isLocked ? 'unlock' : 'lock'"
+          /> -->
+        }
+
+        <app-button-card
+          [buttonAttrTitle]="'Share account information'"
+          [buttonIconName]="'share'"
+        />
+        </div>
+      </div>
+  </app-card>
+</ng-template>
+
+<ng-template let-item #checkingTemplate>
+  <app-card [header]="item.name" [subheader]="item.balance | currency" class="w-1/3 @max-lg:w-full @md:gap-4">
+    <div footer class="card-footer mt-6">
+      <div class="card-footer flex justify-between gap-4">
+        <app-button-card
+          [buttonAttrTitle]="'Deposit funds'"
+          [buttonIconName]="'deposit-funds'"
+        />
+
+        @if(item.type !== 'credit') {
+          <app-button-card
+            [buttonAttrTitle]="'Withdraw funds'"
+            [buttonIconName]="'withdraw-funds'"
+          />
+        }
+
+        @if (item.card) {
+          <app-button-card
+            [buttonAttrTitle]="'View card details'"
+            [buttonIconName]="'credit-card'"
+            (buttonClick)="viewCardDetails(item.card)"
+          />
+  <!--
+          <app-button-card
+            [buttonAttrTitle]="!item.card.isLocked ? 'Unlock card' : 'Lock card'"
+            [buttonIconName]="!item.card.isLocked ? 'unlock' : 'lock'"
+          /> -->
+        }
+
+          <app-button-card
+            [buttonAttrTitle]="'Share account information'"
+            [buttonIconName]="'share'"
+          />
+
+      </div>
+    </div>
+  </app-card>
+</ng-template>

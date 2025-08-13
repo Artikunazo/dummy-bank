@@ -1,19 +1,21 @@
-import {min} from 'rxjs';
+export enum ProductType {
+	CarLoan = 'carLoan',
+	Mortgage = 'mortgage',
+	CreditCard = 'creditCard',
+	Checking = 'checking',
+	Payroll = 'payroll',
+}
 
 export interface IProduct {
 	id: string; // Unique identifier for the product
 	name: string;
+	url: string;
 	description: string;
 	type: string;
-	creditType?: string | null;
-	balance?: number | null;
-	card?: ICard | null;
-	clabe?: string | null;
-	accountNumber: number | null; // Optional, if applicable
-  banner?: {
-    main: string;
-    backup: string;
-  };
+	banner?: {
+		main: string;
+		backup: string;
+	};
 }
 
 export interface ICard {
@@ -24,10 +26,40 @@ export interface ICard {
 	isLocked?: boolean;
 }
 
-export enum CreditType {
-	Auto = 'auto',
-	Mortgage = 'mortgage',
-	Card = 'card',
+export interface ICredit extends IProduct {
+	headline: string;
+	rate: number;
+	loanAmount?: number;
+	creditType: string | null;
+}
+
+export interface ICreditCard extends ICredit {
+	cashback: number;
+	annualFee: number;
+	card?: ICard;
+	productType: ProductType.CreditCard;
+}
+
+export interface IDebit extends IProduct {
+	balance: number;
+	card: ICard | null;
+	accountNumber: string;
+	clabe: string;
+}
+
+export interface ICarLoan extends ICredit {
+	productType: ProductType.CarLoan;
+}
+export interface IMortgageCredit extends ICredit {
+	productType: ProductType.Mortgage;
+}
+
+export interface IPayroll extends IDebit {
+	productType: ProductType.Payroll;
+}
+
+export interface IChecking extends IDebit {
+	productType: ProductType.Checking;
 }
 
 export const BaseBalance = {

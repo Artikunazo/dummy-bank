@@ -1,0 +1,32 @@
+<section class="products-container mt-[5rem]">
+  @if (productsData().length > 0) {
+    <h4 class="mb-4 text-2xl">Available Products</h4>
+  <p-carousel
+    [value]="productsData()"
+    [numVisible]="1"
+    [numScroll]="1"
+    [circular]="true"
+    [autoplayInterval]="5000"
+    class="w-full"
+    [responsiveOptions]="[
+      { breakpoint: '1024px', numVisible: 1, numScroll: 1 },
+      { breakpoint: '768px', numVisible: 1, numScroll: 1 },
+      { breakpoint: '560px', numVisible: 1, numScroll: 1 }
+    ]"
+  >
+    <ng-template let-product #item>
+      <img
+        #imgBanner
+        [src]="product.banner.main"
+        [alt]="product.name"
+        (error)="imgBanner.src = product.banner.backup"
+        (click)="viewDetails(product)"
+      />
+    </ng-template>
+  </p-carousel>
+
+  }
+  @else {
+    <h4 class="text-xl text-center">No products available</h4>
+  }
+</section>

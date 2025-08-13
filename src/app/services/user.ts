@@ -2,6 +2,7 @@ import {Injectable, signal} from '@angular/core';
 import {IUser} from '../models/user';
 
 import {v4 as uuidv4} from 'uuid';
+import { ProductType } from '../models/products';
 
 @Injectable({
 	providedIn: 'root',
@@ -18,7 +19,7 @@ export class UserService {
 				type: 'account',
 				balance: parseFloat((Math.random() * 100000).toFixed(2)),
 				clabe: '1234567789098765432',
-				accountNumber: 1234567890,
+				accountNumber: "1234567890",
 				card: {
 					placeholder: '',
 					number: '1234 5678 9012 3456',
@@ -26,6 +27,8 @@ export class UserService {
 					cvv: '123',
 					isLocked: false,
 				},
+        productType: ProductType.Payroll,
+        url: ''
 			},
 			{
 				id: uuidv4(),
@@ -34,7 +37,7 @@ export class UserService {
 				type: 'account',
 				balance: parseFloat((Math.random() * 10000).toFixed(2)),
 				clabe: '098765432112345678',
-				accountNumber: 1234567890,
+				accountNumber: "1234567890",
 				card: {
 					placeholder: '',
 					number: '2345 6789 0123 4567',
@@ -42,6 +45,8 @@ export class UserService {
 					cvv: '456',
 					isLocked: false,
 				},
+        productType: ProductType.Checking,
+        url:''
 			},
 		],
 	});

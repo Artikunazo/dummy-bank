@@ -1,53 +1,29 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {ProductService} from '../../services/product';
 import {IProduct} from '../../models/products';
 import {CarouselModule} from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-products',
 	standalone: true,
-	imports: [CarouselModule, ButtonModule],
-	template: `
-		<section class="products-container mt-[5rem]">
-			@if (productsData().length > 0) {
-        <h4 class="mb-4 text-2xl">Available Products</h4>
-			<p-carousel
-				[value]="productsData()"
-				[numVisible]="1"
-				[numScroll]="1"
-				[circular]="true"
-				[autoplayInterval]="5000"
-				class="w-full"
-        [responsiveOptions]="[
-          { breakpoint: '1024px', numVisible: 1, numScroll: 1 },
-          { breakpoint: '768px', numVisible: 1, numScroll: 1 },
-          { breakpoint: '560px', numVisible: 1, numScroll: 1 }
-        ]"
-			>
-				<ng-template let-product #item>
-					<img
-						#imgBanner
-						[src]="product.banner.main"
-						[alt]="product.name"
-						(error)="imgBanner.src = product.banner.backup"
-            (click)="signOn(product)"
-					/>
-				</ng-template>
-			</p-carousel>
-      }
-      @else {
-        <h4 class="text-xl text-center">No products available</h4>
-      }
-		</section>
-	`,
+	imports: [CarouselModule, ButtonModule, DialogModule],
+	templateUrl: './products.html',
 	styleUrl: './products.css',
 })
 export class Products {
 	private readonly productService = inject(ProductService);
-	protected readonly productsData = this.productService.products;
+  private readonly router = inject(Router);
 
-	signOn(product: IProduct) {
-		this.productService.signOn(product);
+	protected readonly productsData = this.productService.products;
+  protected productSelected = signal< | null>(null);
+  displayDialog = false;
+
+	viewDetails(product: IProduct) {
+    console.log('Viewing details for:', product.name);
+    this.router.navigate([product.url]);
 	}
+
 }

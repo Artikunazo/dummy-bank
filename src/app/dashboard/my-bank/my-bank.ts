@@ -1,6 +1,6 @@
 import {Component, computed, inject} from '@angular/core';
 import {UserService} from '../../services/user';
-import {CurrencyPipe} from '@angular/common';
+import {CurrencyPipe, NgTemplateOutlet} from '@angular/common';
 import {Card} from '../../common/card/card';
 import {ButtonCard} from '../../common/button-card/button-card';
 import { ICard } from '../../models/products';
@@ -8,7 +8,7 @@ import { ICard } from '../../models/products';
 @Component({
 	selector: 'app-my-bank',
 	standalone: true,
-	imports: [CurrencyPipe, Card, ButtonCard],
+	imports: [CurrencyPipe, Card, ButtonCard, NgTemplateOutlet],
 	templateUrl: "./my-bank.html",
 	styleUrl: './my-bank.css',
 })
