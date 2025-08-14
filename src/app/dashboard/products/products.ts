@@ -22,7 +22,6 @@ export class Products {
   displayDialog = false;
 
 	viewDetails(product: IProduct) {
-    console.log('Viewing details for:', product.name);
     this.router.navigate([product.url]);
 	}
 

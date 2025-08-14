@@ -31,6 +31,7 @@ export interface ICredit extends IProduct {
 	rate: number;
 	loanAmount?: number;
 	creditType: string | null;
+  term: number;
 }
 
 export interface ICreditCard extends ICredit {
@@ -54,6 +55,7 @@ export interface IMortgageCredit extends ICredit {
 	productType: ProductType.Mortgage;
   features: string[];
   labelAction: string;
+  monthlyPayment: number;
 }
 
 export interface IPayroll extends IDebit {
@@ -63,6 +65,8 @@ export interface IPayroll extends IDebit {
 export interface IChecking extends IDebit {
 	productType: ProductType.Checking;
 }
+
+export type CreditProducts = IMortgageCredit | ICarLoan | ICreditCard;
 
 export const BaseBalance = {
 	Auto: {

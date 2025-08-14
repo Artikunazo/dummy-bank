@@ -1,5 +1,7 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {
+	BaseBalance,
+	CreditProducts,
 	ICarLoan,
 	ICreditCard,
 	IMortgageCredit,
@@ -69,15 +71,18 @@ export class ProductService {
 			productType: ProductType.CreditCard,
 			rate: 0,
 			headline: 'Get your card today',
+      term: 0
 		},
 	]);
 
 	mortgageCredits = signal<IMortgageCredit[]>([
 		{
 			id: uuidv4(),
-			name: 'Mortgage Credit',
-			description:
-				'We believe in trust: That\'s why our terms are fair and easy to understand. We offer a highly competitive fixed annual interest rate, starting from 10.25%. You can apply for your loan to purchase a house or apartment with minimum financing from $500,000. For your complete transparency, the Average CAT (Total Annual Cost) is 12.8% excluding VAT. (For informational purposes. Calculation date: August 13, 2025).',
+			name: 'Mortgage Credit 1',
+			description: `We believe in trust: That\'s why our terms are fair and easy to understand.
+        We offer a highly competitive fixed annual interest rate, starting from 10.25%. You can apply for your loan to purchase a house or apartment with minimum financing from $500,000.
+        For your complete transparency, the Average CAT (Total Annual Cost) is 12.8% excluding VAT.
+        (For informational purposes. Calculation date: August 13, 2025).`,
 			type: 'credit',
 			banner: {
 				main: '/assets/products/mortgage.avif',
@@ -93,8 +98,11 @@ export class ProductService {
 				'Fixed annual rates from 10.25%. Your monthly payment will never change.',
 				'Up to 90% financing available.',
 				'No prepayment penalties.',
+        '30-years mortgage term',
 			],
 			labelAction: 'Pre-qualify Now',
+      monthlyPayment: 0,
+      term: 30,
 		},
 	]);
 
@@ -114,44 +122,54 @@ export class ProductService {
 			productType: ProductType.CarLoan,
 			rate: 0,
 			headline: 'Get your car loan today',
+      term: 0
 		},
 	]);
 
-	signOn(product: IProduct) {
+	signOn(product: CreditProducts) {
 		// console.log(product);
-		// const user = this.userService.userState;
-		// product.balance = this.getProductBalance(product);
-		// const updatedProducts = [...user().products, product];
-		// this.userService.userState.update((currentUser) => ({
-		// 	...currentUser,
-		// 	products: updatedProducts,
-		// }));
-		// this.products.update((currentProducts) => [
-		// 	...currentProducts.filter(
-		// 		(currentProduct) => currentProduct.id !== product.id,
-		// 	),
-		// ]);
+		if (product.rate <= 0) return;
+
+		const user = this.userService.userState;
+
+		product.loanAmount = this.getProductBalance(product) * (product.rate / 100);
+		const updatedProducts = [...user().products, product];
+		this.userService.userState.update((currentUser) => ({
+			...currentUser,
+			products: updatedProducts,
+		}));
+
+    if (product.productType === ProductType.Mortgage) {
+      const monthlyPayment = product.loanAmount / (product.term * 12);
+      product.monthlyPayment = monthlyPayment;
+    }
+
+    this.mortgageCredits.update((currentMortgages) => [
+      ...currentMortgages.filter(
+        (currentMortgage) => currentMortgage.id !== product.id,
+      ),
+    ]);
 	}
 
-	// getProductBalance(product: IProduct): number {
-	// 	if (product.type !== 'credit') return 0;
+	getProductBalance(product: CreditProducts): number {
+		if (product.type !== 'credit') return 0;
 
-	// 	switch (product.creditType) {
-	// 		case CreditType.Auto:
-	// 			return this.calculateLoan(BaseBalance.Auto.min, BaseBalance.Auto.max);
-	// 		case CreditType.Mortgage:
-	// 			return this.calculateLoan(
-	// 				BaseBalance.Mortgage.min,
-	// 				BaseBalance.Mortgage.max,
-	// 			);
-	// 		case CreditType.Card:
-	// 			return this.calculateLoan(BaseBalance.Card.min, BaseBalance.Card.max);
-	// 		default:
-	// 			return 0;
-	// 	}
-	// }
+		switch (product.creditType) {
+			case ProductType.CarLoan:
+				return this.calculateLoan(BaseBalance.Auto.min, BaseBalance.Auto.max);
+			case ProductType.Mortgage:
+				return this.calculateLoan(
+					BaseBalance.Mortgage.min,
+					BaseBalance.Mortgage.max,
+				);
+			case ProductType.CreditCard:
+				return this.calculateLoan(BaseBalance.Card.min, BaseBalance.Card.max);
+			default:
+				return 0;
+		}
+	}
 
-	// calculateLoan(min: number, max: number) {
-	// 	return parseFloat((Math.random() * (max - min) + min).toFixed(2));
-	// }
+	calculateLoan(min: number, max: number) {
+		return parseFloat((Math.random() * (max - min) + min).toFixed(2));
+	}
 }

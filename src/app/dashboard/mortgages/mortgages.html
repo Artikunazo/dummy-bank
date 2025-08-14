@@ -1,0 +1,61 @@
+<section class="grid grid-cols-1">
+			<app-navbar />
+      @if(mortgageCredits().length > 0) {
+        <h4 class="mb-4 text-2xl">Available Mortgages</h4>
+      } @else {
+        <h4 class="text-xl text-center">No mortgages available</h4>
+      }
+			<img
+				#imgBanner
+				src="/assets/products/mortgage.avif"
+				alt="Mortgage Banner"
+				(error)="imgBanner.src = '/assets/products/mortgage.jpg'"
+				class="rounded-lg aspect-[16/9]"
+			/>
+
+			<div class="content mt-6 p-6">
+				<h3 class="font-bold text-2xl text-center">Our Mortgages</h3>
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+					@for (mortgage of mortgageCredits(); track mortgage.id) {
+						<app-card
+							[header]="mortgage.name"
+							[subheader]="'Rate ' + mortgage.rate + '%'"
+						>
+							<p class="text-justify">{{ mortgage.description }}</p>
+							<button
+								pButton
+								type="button"
+								label="{{ mortgage.labelAction }}"
+								class="w-full mt-2"
+								(click)="applyNow(mortgage)"
+							></button>
+						</app-card>
+					}
+				</div>
+			</div>
+
+			<p-dialog
+				[header]="this.selectedMortgage().headline"
+				[modal]="true"
+				[(visible)]="displayDialog"
+				[style]="{width: '90vw'}"
+			>
+				@let selectedMortgage = this.selectedMortgage();
+				<ng-template pTemplate="content">
+					<ul style="list-style-type: disc; margin-left: 20px;">
+						@for (mortgage of selectedMortgage?.features; track mortgage) {
+							<li>{{ mortgage }}</li>
+						}
+					</ul>
+				</ng-template>
+				<ng-template pTemplate="footer">
+          <button
+            pButton
+            label="Apply"
+            icon="pi pi-check"
+            [loading]="isLoading()"
+            (click)="confirmApply()"
+          ></button>
+				</ng-template>
+			</p-dialog>
+		</section>

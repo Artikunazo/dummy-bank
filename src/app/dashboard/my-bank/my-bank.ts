@@ -3,7 +3,7 @@ import {UserService} from '../../services/user';
 import {CurrencyPipe, NgTemplateOutlet} from '@angular/common';
 import {Card} from '../../common/card/card';
 import {ButtonCard} from '../../common/button-card/button-card';
-import { ICard } from '../../models/products';
+import { ICard, ProductType } from '../../models/products';
 
 @Component({
 	selector: 'app-my-bank',
@@ -16,6 +16,7 @@ export class MyBank {
 	private readonly userService = inject(UserService);
 	protected readonly userData = this.userService.userState;
 
+  protected readonly productType = ProductType;
 	userProducts = computed(() => this.userData().products);
 
   viewCardDetails(card: ICard) {
