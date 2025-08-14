@@ -54,6 +54,7 @@ export interface IDebit extends IProduct {
 
 export interface ICarLoan extends ICredit {
 	productType: ProductType.CarLoan;
+  monthlyPayment: number;
 }
 export interface IMortgageCredit extends ICredit {
 	productType: ProductType.Mortgage;
