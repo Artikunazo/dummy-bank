@@ -8,7 +8,7 @@ import {UserService} from '../services/user';
 	standalone: true,
 	imports: [Products, MyBank],
 	template: `
-		<section class="dashboard-container p-4 min-h-screen flex-1">
+		<section class="dashboard-container p-4 min-h-screen">
 			<h2 class="text-3xl font-bold mb-3">Welcome, {{ username }}</h2>
 
 			<app-my-bank />
