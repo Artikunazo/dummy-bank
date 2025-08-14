@@ -32,6 +32,7 @@ export interface ICredit extends IProduct {
 	loanAmount?: number;
 	creditType: string | null;
   term: number;
+  accountNumber: string | null;
 }
 
 export interface ICreditCard extends ICredit {

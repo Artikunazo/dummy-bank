@@ -71,7 +71,8 @@ export class ProductService {
 			productType: ProductType.CreditCard,
 			rate: 0,
 			headline: 'Get your card today',
-      term: 0
+      term: 0,
+      accountNumber: null
 		},
 	]);
 
@@ -103,6 +104,7 @@ export class ProductService {
 			labelAction: 'Pre-qualify Now',
       monthlyPayment: 0,
       term: 30,
+      accountNumber: null
 		},
 	]);
 
@@ -122,12 +124,12 @@ export class ProductService {
 			productType: ProductType.CarLoan,
 			rate: 0,
 			headline: 'Get your car loan today',
-      term: 0
+      term: 0,
+      accountNumber: null
 		},
 	]);
 
 	signOn(product: CreditProducts) {
-		// console.log(product);
 		if (product.rate <= 0) return;
 
 		const user = this.userService.userState;
@@ -144,11 +146,15 @@ export class ProductService {
       product.monthlyPayment = monthlyPayment;
     }
 
+    product.accountNumber = this.generateAccountNumber();
+
     this.mortgageCredits.update((currentMortgages) => [
       ...currentMortgages.filter(
         (currentMortgage) => currentMortgage.id !== product.id,
       ),
     ]);
+
+
 	}
 
 	getProductBalance(product: CreditProducts): number {
@@ -172,4 +178,9 @@ export class ProductService {
 	calculateLoan(min: number, max: number) {
 		return parseFloat((Math.random() * (max - min) + min).toFixed(2));
 	}
+
+  generateAccountNumber(): string {
+    const randomNumber = Math.floor(Math.random() * 1000000);
+    return `${randomNumber}`;
+  }
 }
