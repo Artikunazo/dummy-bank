@@ -7,7 +7,7 @@ export enum ProductType {
 }
 
 export interface IProduct {
-	id: string; // Unique identifier for the product
+	id: string;
 	name: string;
 	description: string | string[];
 	type: string;
@@ -32,7 +32,6 @@ export interface ICredit extends IProduct {
 	headline: string;
 	rate: number;
 	loanAmount?: number;
-	creditType: string | null;
   term: number;
   accountNumber: string | null;
 }

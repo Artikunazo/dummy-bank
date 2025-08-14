@@ -69,7 +69,7 @@ export class ProductService {
 	getProductBalance(product: CreditProducts): number {
 		if (product.type !== 'credit') return 0;
 
-		switch (product.creditType) {
+		switch (product.productType) {
 			case ProductType.CarLoan:
 				return this.calculateLoan(BaseBalance.Auto.min, BaseBalance.Auto.max);
 			case ProductType.Mortgage:
