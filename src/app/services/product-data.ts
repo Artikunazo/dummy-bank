@@ -56,8 +56,8 @@ export class ProductDataService {
 				"We designed the Dummy Bank Credit Card with you in mind. It's more than just a payment method—it's your partner to help you enjoy more, spend smarter, and have complete peace of mind that your money is secure.",
 			type: 'credit',
 			banner: {
-				main: '/assets/products/credit-card.avif',
-				backup: '/assets/products/credit-card.jpg',
+				main: 'assets/products/credit-card.avif',
+				backup: 'assets/products/credit-card.jpg',
 			},
 			loanAmount: 0,
 			cashback: 2,
@@ -87,8 +87,8 @@ export class ProductDataService {
         (For informational purposes. Calculation date: August 13, 2025).`,
 			type: 'credit',
 			banner: {
-				main: '/assets/products/mortgage.avif',
-				backup: '/assets/products/mortgage.jpg',
+				main: 'assets/products/mortgage.avif',
+				backup: 'assets/products/mortgage.jpg',
 			},
 			loanAmount: 0,
 			productType: ProductType.Mortgage,
@@ -115,8 +115,8 @@ export class ProductDataService {
 				"You've done the research to find the perfect car. Now, make the smart choice for financing it. The Dummy Bank Car Loan is built for savvy buyers who want competitive rates, flexible terms, and a partner they can trust. We provide a loan that works as hard as you do, ensuring your smart purchase is also a smart financial decision.",
 			type: 'credit',
 			banner: {
-				main: '/assets/products/car-loan.avif',
-				backup: '/assets/products/car-loan.jpg',
+				main: 'assets/products/car-loan.avif',
+				backup: 'assets/products/car-loan.jpg',
 			},
 			loanAmount: 0,
 			productType: ProductType.CarLoan,
