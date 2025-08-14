@@ -11,6 +11,12 @@
       @case(productType.Mortgage) {
         <ng-container *ngTemplateOutlet="mortgageTemplate; context: {$implicit: item}"></ng-container>
       }
+      @case (productType.CarLoan) {
+        <ng-container *ngTemplateOutlet="carLoanTemplate; context: {$implicit: item}"></ng-container>
+      }
+      @case (productType.CreditCard) {
+        <ng-container *ngTemplateOutlet="creditCardTemplate; context: {$implicit: item}"></ng-container>
+      }
      }
     }
   </div>
@@ -24,6 +30,7 @@
           [buttonAttrTitle]="'Deposit funds'"
           [buttonIconName]="'deposit-funds'"
         />
+
         <app-button-card
           [buttonAttrTitle]="'Withdraw funds'"
           [buttonIconName]="'withdraw-funds'"
@@ -90,6 +97,52 @@
           [buttonAttrTitle]="'Pay Mortgage'"
           [buttonIconName]="'deposit-funds'"
         />
+      </div>
+    </div>
+  </app-card>
+</ng-template>
+
+<ng-template let-carLoan #carLoanTemplate>
+  <app-card [header]="carLoan.name" [subheader]="carLoan.balance | currency">
+    <div class="content">
+      <p class="font-semibold">Remaining Balance: {{ carLoan.loanAmount | currency }}</p>
+      <p >Monthly Payment: {{ carLoan.monthlyPayment | currency }}</p>
+      <p >Car Loan Term: {{ carLoan.term }} years</p>
+      <p >Rate: {{ carLoan.rate }}%</p>
+      <p >Account Number: {{ carLoan.accountNumber }}</p>
+    </div>
+    <div footer class="card-footer mt-6">
+      <div class="card-footer flex justify-between gap-4">
+        <app-button-card
+          [buttonAttrTitle]="'Pay Car Loan'"
+          [buttonIconName]="'deposit-funds'"
+        />
+      </div>
+    </div>
+  </app-card>
+</ng-template>
+
+<ng-template let-creditCard #creditCardTemplate>
+  <app-card [header]="creditCard.name" [subheader]="creditCard.balance | currency">
+    <div class="content">
+      <p class="font-semibold">Remaining Balance: {{ creditCard.loanAmount | currency }}</p>
+      <p >Monthly Payment: {{ creditCard.monthlyPayment | currency }}</p>
+      <p >Credit Term: {{ creditCard.term }} years</p>
+      <p >Rate: {{ creditCard.rate }}%</p>
+      <p >Account Number: {{ creditCard.accountNumber }}</p>
+    </div>
+    <div footer class="card-footer mt-6">
+      <div class="card-footer flex justify-between gap-4">
+        <app-button-card
+          [buttonAttrTitle]="'Pay Mortgage'"
+          [buttonIconName]="'deposit-funds'"
+        />
+
+        <app-button-card
+            [buttonAttrTitle]="'View card details'"
+            [buttonIconName]="'credit-card'"
+            (buttonClick)="viewCardDetails(creditCard.card)"
+          />
       </div>
     </div>
   </app-card>
