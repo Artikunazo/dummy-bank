@@ -1,0 +1,56 @@
+<section class="grid grid-cols-1">
+  <app-navbar />
+  <img
+    #imgBanner
+    src="/assets/products/car-loan.avif"
+    alt="Car Loan Banner"
+    (error)="imgBanner.src = '/assets/products/car-loan.jpg'"
+    class="rounded-lg aspect-[16/9]"
+  />
+
+  <div class="content mt-6 p-6">
+    <h3 class="font-bold text-2xl text-center">Our Car Loans</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      @for (carLoan of carLoans(); track carLoan.id) {
+        <app-card
+          [header]="carLoan.name"
+          [subheader]="'Rate ' + carLoan.rate + '%'"
+        >
+          <p class="text-justify">{{ carLoan.description }}</p>
+          <button
+            pButton
+            type="button"
+            label="{{ carLoan.labelAction }}"
+            class="w-full mt-2"
+            (click)="applyNow(carLoan)"
+          ></button>
+        </app-card>
+      }
+    </div>
+  </div>
+
+  <p-dialog
+    [header]="this.selectedCarLoan().headline"
+    [modal]="true"
+    [(visible)]="displayDialog"
+    [style]="{width: '90vw'}"
+  >
+    @let selectedCarLoan = this.selectedCarLoan();
+    <ng-template pTemplate="content">
+      <ul style="list-style-type: disc; margin-left: 20px;">
+        @for (feature of selectedCarLoan?.features; track feature) {
+          <li>{{ feature }}</li>
+        }
+      </ul>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        label="Apply"
+        icon="pi pi-check"
+        [loading]="isLoading()"
+        (click)="confirmApply()"
+      ></button>
+    </ng-template>
+  </p-dialog>
+</section>

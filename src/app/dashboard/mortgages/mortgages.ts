@@ -6,6 +6,7 @@ import {IMortgageCredit} from '../../models/products';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import { Router } from '@angular/router';
+import { ProductDataService } from '../../services/product-data';
 
 @Component({
 	selector: 'app-mortgages',
@@ -15,10 +16,11 @@ import { Router } from '@angular/router';
 	styleUrl: './mortgages.css',
 })
 export class Mortgages {
+	private readonly productDataService = inject(ProductDataService);
 	private readonly productService = inject(ProductService);
   private readonly router = inject(Router);
 
-	mortgageCredits = this.productService.mortgageCredits;
+	mortgageCredits = this.productDataService.mortgageCredits;
 	displayDialog = false;
 	selectedMortgage = signal<IMortgageCredit>({} as IMortgageCredit);
 	isLoading = signal(false);

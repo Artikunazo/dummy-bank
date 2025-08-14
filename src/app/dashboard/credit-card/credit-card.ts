@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../services/product';
 import { ICreditCard } from '../../models/products';
 import { ButtonModule } from 'primeng/button';
+import { ProductDataService } from '../../services/product-data';
 
 @Component({
   selector: 'app-credit-card',
@@ -15,9 +16,10 @@ import { ButtonModule } from 'primeng/button';
 })
 export class CreditCard {
 	private readonly productService = inject(ProductService);
+	private readonly productDataService = inject(ProductDataService);
   private readonly router = inject(Router);
 
-	creditCards = this.productService.creditCards;
+	creditCards = this.productDataService.creditCards;
 	displayDialog = false;
 	selectedCreditCard = signal<ICreditCard>({} as ICreditCard);
 	isLoading = signal(false);

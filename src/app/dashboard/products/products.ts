@@ -5,6 +5,7 @@ import {CarouselModule} from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
+import { ProductDataService } from '../../services/product-data';
 
 @Component({
 	selector: 'app-products',
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
 	styleUrl: './products.css',
 })
 export class Products {
-	private readonly productService = inject(ProductService);
+	private readonly productService = inject(ProductDataService);
   private readonly router = inject(Router);
 
 	protected readonly productsData = this.productService.products;
