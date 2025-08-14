@@ -10,7 +10,7 @@ export interface IProduct {
 	id: string; // Unique identifier for the product
 	name: string;
 	url: string;
-	description: string;
+	description: string | string[];
 	type: string;
 	banner?: {
 		main: string;
@@ -52,6 +52,8 @@ export interface ICarLoan extends ICredit {
 }
 export interface IMortgageCredit extends ICredit {
 	productType: ProductType.Mortgage;
+  features: string[];
+  labelAction: string;
 }
 
 export interface IPayroll extends IDebit {
