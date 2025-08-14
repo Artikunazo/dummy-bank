@@ -1,0 +1,1 @@
+import{$a as s,Ca as o,_a as r,xb as i}from"./chunk-SOAL4WYF.js";var n=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-user-profile"]],decls:2,vars:0,template:function(e,p){e&1&&(r(0,"p"),i(1,"user-profile works!"),s())},encapsulation:2})};export{n as UserProfile};
