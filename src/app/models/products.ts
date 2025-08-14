@@ -9,13 +9,15 @@ export enum ProductType {
 export interface IProduct {
 	id: string; // Unique identifier for the product
 	name: string;
-	url: string;
 	description: string | string[];
 	type: string;
 	banner?: {
-		main: string;
+    main: string;
 		backup: string;
 	};
+  url?: string;
+  features?: string[];
+  labelAction?: string;
 }
 
 export interface ICard {
@@ -40,6 +42,7 @@ export interface ICreditCard extends ICredit {
 	annualFee: number;
 	card?: ICard;
 	productType: ProductType.CreditCard;
+  monthlyPayment: number;
 }
 
 export interface IDebit extends IProduct {
@@ -54,8 +57,6 @@ export interface ICarLoan extends ICredit {
 }
 export interface IMortgageCredit extends ICredit {
 	productType: ProductType.Mortgage;
-  features: string[];
-  labelAction: string;
   monthlyPayment: number;
 }
 

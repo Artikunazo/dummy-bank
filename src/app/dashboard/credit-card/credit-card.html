@@ -2,27 +2,27 @@
   <app-navbar />
   <img
     #imgBanner
-    src="/assets/products/mortgage.avif"
-    alt="Mortgage Banner"
-    (error)="imgBanner.src = '/assets/products/mortgage.jpg'"
+    src="/assets/products/credit-card.avif"
+    alt="Credit Card Banner"
+    (error)="imgBanner.src = '/assets/products/credit-card.jpg'"
     class="rounded-lg aspect-[16/9]"
   />
 
   <div class="content mt-6 p-6">
-    <h3 class="font-bold text-2xl text-center">Our Mortgages</h3>
+    <h3 class="font-bold text-2xl text-center">Our Credit Cards</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      @for (mortgage of mortgageCredits(); track mortgage.id) {
+      @for (creditCard of creditCards(); track creditCard.id) {
         <app-card
-          [header]="mortgage.name"
-          [subheader]="'Rate ' + mortgage.rate + '%'"
+          [header]="creditCard.name"
+          [subheader]="'Rate ' + creditCard.rate + '%'"
         >
-          <p class="text-justify">{{ mortgage.description }}</p>
+          <p class="text-justify">{{ creditCard.description }}</p>
           <button
             pButton
             type="button"
-            label="{{ mortgage.labelAction }}"
+            label="{{ creditCard.labelAction }}"
             class="w-full mt-2"
-            (click)="applyNow(mortgage)"
+            (click)="applyNow(creditCard)"
           ></button>
         </app-card>
       }
@@ -30,16 +30,16 @@
   </div>
 
   <p-dialog
-    [header]="this.selectedMortgage().headline"
+    [header]="this.selectedCreditCard().headline"
     [modal]="true"
     [(visible)]="displayDialog"
     [style]="{width: '90vw'}"
   >
-    @let selectedMortgage = this.selectedMortgage();
+    @let selectedCreditCard = this.selectedCreditCard();
     <ng-template pTemplate="content">
       <ul style="list-style-type: disc; margin-left: 20px;">
-        @for (mortgage of selectedMortgage?.features; track mortgage) {
-          <li>{{ mortgage }}</li>
+        @for (feature of selectedCreditCard?.features; track feature) {
+          <li>{{ feature }}</li>
         }
       </ul>
     </ng-template>

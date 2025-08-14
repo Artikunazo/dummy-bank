@@ -56,23 +56,30 @@ export class ProductService {
 	creditCards = signal<ICreditCard[]>([
 		{
 			id: uuidv4(),
-			name: 'Card Credit',
-			description: 'Car credit description',
+			name: 'Credit Card 1',
+			description:
+				"We designed the Dummy Bank Credit Card with you in mind. It's more than just a payment method—it's your partner to help you enjoy more, spend smarter, and have complete peace of mind that your money is secure.",
 			type: 'credit',
 			banner: {
 				main: '/assets/products/credit-card.avif',
 				backup: '/assets/products/credit-card.jpg',
 			},
-			url: '',
-			creditType: 'card',
+			creditType: 'creditCard',
 			loanAmount: 0,
-			cashback: 0,
+			cashback: 2,
 			annualFee: 0,
 			productType: ProductType.CreditCard,
-			rate: 0,
+			rate: 29.9,
 			headline: 'Get your card today',
-      term: 0,
-      accountNumber: null
+			term: 1,
+			accountNumber: null,
+			features: [
+				'Start with a $1,000 credit line that has the potential to grow with you.',
+				'A competitive 29.9% fixed annual interest rate. No surprises and no hidden clauses.',
+				'For your peace of mind, the Average APR is 41.5% (excluding VAT). (For informational purposes. Calculated as of August 12, 2025).',
+			],
+			labelAction: 'Apply Now',
+			monthlyPayment: 0,
 		},
 	]);
 
@@ -89,7 +96,6 @@ export class ProductService {
 				main: '/assets/products/mortgage.avif',
 				backup: '/assets/products/mortgage.jpg',
 			},
-			url: '/dashboard/mortgage',
 			creditType: 'mortgage',
 			loanAmount: 0,
 			productType: ProductType.Mortgage,
@@ -99,12 +105,12 @@ export class ProductService {
 				'Fixed annual rates from 10.25%. Your monthly payment will never change.',
 				'Up to 90% financing available.',
 				'No prepayment penalties.',
-        '30-years mortgage term',
+				'30-years mortgage term',
 			],
 			labelAction: 'Pre-qualify Now',
-      monthlyPayment: 0,
-      term: 30,
-      accountNumber: null
+			monthlyPayment: 0,
+			term: 30,
+			accountNumber: null,
 		},
 	]);
 
@@ -118,14 +124,13 @@ export class ProductService {
 				main: '/assets/products/car-loan.avif',
 				backup: '/assets/products/car-loan.jpg',
 			},
-			url: '/dashboard/car-loan',
 			creditType: 'car',
 			loanAmount: 0,
 			productType: ProductType.CarLoan,
 			rate: 0,
 			headline: 'Get your car loan today',
-      term: 0,
-      accountNumber: null
+			term: 0,
+			accountNumber: null,
 		},
 	]);
 
@@ -141,24 +146,27 @@ export class ProductService {
 			products: updatedProducts,
 		}));
 
-    if (product.productType === ProductType.Mortgage) {
-      const monthlyPayment = product.loanAmount / (product.term * 12);
-      product.monthlyPayment = monthlyPayment;
-    }
+		if (product.productType === ProductType.Mortgage) {
+			const monthlyPayment = product.loanAmount / (product.term * 12);
+			product.monthlyPayment = monthlyPayment;
+		}
 
-    product.accountNumber = this.generateAccountNumber();
+		if (product.productType === ProductType.CreditCard) {
+			const monthlyPayment = product.loanAmount / (product.term * 12);
+			product.monthlyPayment = monthlyPayment;
+		}
 
-    this.mortgageCredits.update((currentMortgages) => [
-      ...currentMortgages.filter(
-        (currentMortgage) => currentMortgage.id !== product.id,
-      ),
-    ]);
+		product.accountNumber = this.generateAccountNumber();
 
-
+		this.mortgageCredits.update((currentMortgages) => [
+			...currentMortgages.filter(
+				(currentMortgage) => currentMortgage.id !== product.id,
+			),
+		]);
 	}
 
 	getProductBalance(product: CreditProducts): number {
-		if (product.type !== 'credit') return 0;
+    if (product.type !== 'credit') return 0;
 
 		switch (product.creditType) {
 			case ProductType.CarLoan:
@@ -179,8 +187,8 @@ export class ProductService {
 		return parseFloat((Math.random() * (max - min) + min).toFixed(2));
 	}
 
-  generateAccountNumber(): string {
-    const randomNumber = Math.floor(Math.random() * 1000000);
-    return `${randomNumber}`;
-  }
+	generateAccountNumber(): string {
+		const randomNumber = Math.floor(Math.random() * 1000000);
+		return `${randomNumber}`;
+	}
 }
