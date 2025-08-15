@@ -2,9 +2,8 @@
   <app-navbar />
   <img
     #imgBanner
-    src="assets/products/credit-card.avif"
+    [src]="baseUrl + 'products/credit-card.jpg'"
     alt="Credit Card Banner"
-    (error)="imgBanner.src = 'assets/products/credit-card.jpg'"
     class="rounded-lg aspect-[16/9]"
   />
 

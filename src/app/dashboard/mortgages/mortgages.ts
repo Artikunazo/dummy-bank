@@ -7,6 +7,7 @@ import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import { Router } from '@angular/router';
 import { ProductDataService } from '../../services/product-data';
+import { environment } from '../../../environments/environment';
 
 @Component({
 	selector: 'app-mortgages',
@@ -20,6 +21,7 @@ export class Mortgages {
 	private readonly productService = inject(ProductService);
   private readonly router = inject(Router);
 
+  baseUrl = environment.baseAssetUrl;
 	mortgageCredits = this.productDataService.mortgageCredits;
 	displayDialog = false;
 	selectedMortgage = signal<IMortgageCredit>({} as IMortgageCredit);

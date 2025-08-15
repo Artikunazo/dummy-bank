@@ -7,6 +7,7 @@ import { ProductService } from '../../services/product';
 import { ICreditCard } from '../../models/products';
 import { ButtonModule } from 'primeng/button';
 import { ProductDataService } from '../../services/product-data';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-credit-card',
@@ -19,6 +20,7 @@ export class CreditCard {
 	private readonly productDataService = inject(ProductDataService);
   private readonly router = inject(Router);
 
+  baseUrl = environment.baseAssetUrl;
 	creditCards = this.productDataService.creditCards;
 	displayDialog = false;
 	selectedCreditCard = signal<ICreditCard>({} as ICreditCard);

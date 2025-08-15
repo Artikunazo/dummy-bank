@@ -22,21 +22,18 @@
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "css",
 						"assets": [
-							{
-								"glob": "**/*",
-								"input": "dist/dummy-bank"
-							}
+							 "src/favicon.ico", "src/assets"
 						],
 						"styles": ["src/styles.css"],
-            "outputPath": "dist/dummy-bank"
+            "outputPath": "dist/"
 					},
 					"configurations": {
 						"production": {
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "500kB",
-									"maximumError": "1MB"
+									"maximumWarning": "1MB",
+									"maximumError": "2MB"
 								},
 								{
 									"type": "anyComponentStyle",
@@ -44,7 +41,13 @@
 									"maximumError": "8kB"
 								}
 							],
-							"outputHashing": "all"
+							"outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
 						},
 						"development": {
 							"optimization": false,
