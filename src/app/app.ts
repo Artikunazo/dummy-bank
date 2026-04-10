@@ -1,12 +1,67 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule],
+  template: `
+    <div class="min-h-screen bg-slate-900 text-slate-200 flex">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col hidden md:flex">
+        <div class="p-6 border-b border-slate-800">
+          <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+            DummyBank
+          </div>
+        </div>
+        
+        <nav class="flex-1 p-4 space-y-2">
+          <a routerLink="/dashboard" routerLinkActive="bg-slate-800 text-white border-blue-500" class="block px-4 py-3 rounded-lg border-l-2 border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-medium">
+            <i class="pi pi-home mr-3"></i> Dashboard
+          </a>
+          <a routerLink="/cards" routerLinkActive="bg-slate-800 text-white border-blue-500" class="block px-4 py-3 rounded-lg border-l-2 border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-medium">
+            <i class="pi pi-credit-card mr-3"></i> Tarjetas
+          </a>
+          <a routerLink="/investments" routerLinkActive="bg-slate-800 text-white border-blue-500" class="block px-4 py-3 rounded-lg border-l-2 border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-medium">
+            <i class="pi pi-chart-line mr-3"></i> Inversiones
+          </a>
+          <a routerLink="/profile" routerLinkActive="bg-slate-800 text-white border-blue-500" class="block px-4 py-3 rounded-lg border-l-2 border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-medium">
+            <i class="pi pi-user mr-3"></i> Mi Perfil
+          </a>
+        </nav>
+        
+        <div class="p-4 border-t border-slate-800">
+          <button (click)="logout()" class="w-full py-2 px-4 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-red-400 transition-colors text-left flex items-center">
+            <i class="pi pi-sign-out mr-3"></i> Salir
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto">
+        <!-- Layout Wrapper -->
+        <div class="max-w-7xl mx-auto p-4 md:p-8">
+          <router-outlet></router-outlet>
+        </div>
+      </main>
+    </div>
+  `,
+  styles: [`
+    :host {
+      display: block;
+    }
+  `]
 })
-export class App {
-  protected readonly title = signal('dummy-bank');
+export class App implements OnInit {
+  authService = inject(AuthService);
+
+  ngOnInit() {
+    this.authService.initialize();
+  }
+
+  logout() {
+    this.authService.signOut();
+  }
 }
