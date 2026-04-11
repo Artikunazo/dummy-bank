@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, effect } from '@angular/core';
 import { SupabaseService } from './supabase.service';
 import { AuthService } from './auth.service';
 import { AccountService } from './account.service';
@@ -13,6 +13,15 @@ export class InvestmentService {
 
   public products = signal<InvestmentProduct[]>([]);
   public portfolio = signal<Portfolio[]>([]);
+
+  constructor() {
+    // Reactividad: carga automética del portafolio cuando el usuario esté disponible (soluciona F5)
+    effect(() => {
+      if (this.authService.currentUser()) {
+        this.loadPortfolio();
+      }
+    });
+  }
 
   async loadProducts(): Promise<void> {
     const { data, error } = await this.supabase

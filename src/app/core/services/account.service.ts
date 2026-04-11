@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, effect } from '@angular/core';
 import { SupabaseService } from './supabase.service';
 import { AuthService } from './auth.service';
 import { Account, DebitCard, ServiceResult } from '../models';
@@ -15,7 +15,14 @@ export class AccountService {
   private authService = inject(AuthService);
   private supabase = this.supabaseService.client;
 
-  constructor() {}
+  constructor() {
+    // Reactividad: carga automética cuando el usuario esté disponible (soluciona F5)
+    effect(() => {
+      if (this.authService.currentUser()) {
+        this.load();
+      }
+    });
+  }
 
   async load(): Promise<void> {
     const user = this.authService.currentUser();

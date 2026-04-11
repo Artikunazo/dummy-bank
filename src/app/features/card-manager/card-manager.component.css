@@ -1,3 +1,61 @@
 .perspective-1000 {
   perspective: 1000px;
 }
+
+/* ── 3D Card base ────────────────── */
+.bank-card {
+  width: 360px;
+  height: 220px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border-radius: 18px;
+}
+
+.bank-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.bank-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 18px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Débito gradient ─────────────── */
+.bank-card-front {
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 50%, #164e63 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.bank-card-back {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  transform: rotateY(180deg);
+}
+
+/* ── Crédito gradient (dark-gold) ── */
+.bank-card-front--credit {
+  background: linear-gradient(135deg, #18181b 0%, #3b0764 50%, #18181b 100%);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+.bank-card-back--credit {
+  background: linear-gradient(135deg, #1c1917 0%, #3b0764 100%);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  transform: rotateY(180deg);
+}
+
+@media (max-width: 420px) {
+  .bank-card {
+    width: 300px;
+    height: 185px;
+  }
+}
