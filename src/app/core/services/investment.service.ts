@@ -78,21 +78,39 @@ export class InvestmentService {
       return deductResult;
     }
 
-    const payload = {
-      user_id: user.id,
-      product_id: productId,
-      shares: 1, // Simplified for this sim
-      purchase_price: amount,
-      current_value: amount
-    };
-
-    const { error } = await this.supabase
+    
+    // Check if portfolio for this product already exists
+    const { data: existing } = await this.supabase
       .from('portfolios')
-      .insert(payload);
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('product_id', productId)
+      .single();
 
-    if (error) {
-      return { success: false, error: 'Error al procesar la inversión.' };
+    if (existing) {
+      const newAmount = existing.current_value + amount;
+      const { error } = await this.supabase
+        .from('portfolios')
+        .update({ purchase_price: newAmount, current_value: newAmount })
+        .eq('id', existing.id);
+      
+      if (error) return { success: false, error: 'Error al procesar la inversión.' };
+    } else {
+      const payload = {
+        user_id: user.id,
+        product_id: productId,
+        shares: 1, // Simplified for this sim
+        purchase_price: amount,
+        current_value: amount
+      };
+
+      const { error } = await this.supabase
+        .from('portfolios')
+        .insert(payload);
+
+      if (error) return { success: false, error: 'Error al procesar la inversión.' };
     }
+
 
     await this.loadPortfolio();
     return { success: true };

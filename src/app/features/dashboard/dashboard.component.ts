@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { CarouselModule } from 'primeng/carousel';
@@ -6,11 +6,12 @@ import { AccountService } from '../../core/services/account.service';
 import { CreditServicesService } from '../../core/services/credit-services.service';
 import { InvestmentService } from '../../core/services/investment.service';
 import { CurrencyMxnPipe } from '../../shared/pipes/currency-mxn.pipe';
+import { TransferModalComponent } from '../../shared/components/modal/transfer-modal.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, CurrencyMxnPipe, CarouselModule],
+  imports: [CommonModule, RouterModule, CurrencyMxnPipe, CarouselModule, TransferModalComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -19,6 +20,8 @@ export class DashboardComponent implements OnInit {
   public creditService = inject(CreditServicesService);
   public investmentService = inject(InvestmentService);
   private router = inject(Router);
+
+  public showTransferModal = signal(false);
 
   public availableServices = [
     {

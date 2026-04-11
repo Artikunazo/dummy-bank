@@ -49,6 +49,7 @@ export interface UserProfile {
   fullName: string;
   phoneNumber?: string;
   avatarUrl?: string;
+  theme?: 'light' | 'dark';
   createdAt: string;
 }
 

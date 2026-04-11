@@ -14,8 +14,8 @@ import { AuthService } from '../../core/services/auth.service';
           <img [src]="profile()?.avatarUrl" alt="Avatar" class="w-32 h-32 rounded-full border-4 border-slate-800 shadow-xl mb-4" />
           <h2 class="text-xl font-bold text-white">{{ profile()?.fullName }}</h2>
           <p class="text-slate-400 mt-1">ID: <span class="font-mono text-xs">{{ profile()?.id | slice:0:8 }}...</span></p>
-          <div class="mt-6 w-full border-t border-slate-700/50 pt-4 flex flex-col gap-2 relative">
-             <div class="flex justify-between">
+    <div class="mt-6 w-full border-t border-slate-700/50 pt-4 flex flex-col gap-4 relative">
+             <div class="flex justify-between items-center">
                 <span class="text-slate-400 text-sm">Sesión Segura</span>
                 <span class="text-emerald-400 text-sm"><i class="pi pi-check-circle"></i> Anónima</span>
              </div>

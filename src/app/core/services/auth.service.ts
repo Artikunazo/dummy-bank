@@ -54,8 +54,8 @@ export class AuthService {
 
   private async createInitialProfile(userId: string): Promise<void> {
     // Generate fake data
-    const firstNames = ['Mike', 'Susana', 'Elba', 'Alan', 'Aquiles', 'Alma'];
-    const lastNames = ['Rosofft', 'Horia', 'Lazo', 'Brito', 'Baeza', 'Madero'];
+    const firstNames = ['Alejandro', 'Sofia', 'Luis', 'Karla', 'Jorge', 'Maria'];
+    const lastNames = ['Ramirez', 'Gonzalez', 'Flores', 'Vargas', 'Herrera', 'Silva'];
     const fakeName = `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`;
     const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${userId}`;
 
@@ -64,7 +64,8 @@ export class AuthService {
       .upsert({ 
         user_id: userId, 
         full_name: fakeName, 
-        avatar_url: avatarUrl 
+        avatar_url: avatarUrl, 
+        theme: 'dark' 
       })
       .select()
       .single();
@@ -75,7 +76,8 @@ export class AuthService {
         email: data.email || '',
         fullName: data.full_name,
         avatarUrl: data.avatar_url,
-        createdAt: data.created_at
+        createdAt: data.created_at,
+        theme: data.theme || 'dark'
       } as UserProfile);
       // Also create a base account 
       await this.supabase.from('accounts').insert({ user_id: userId, balance: 25000 });
@@ -95,13 +97,16 @@ export class AuthService {
         email: data.email || '',
         fullName: data.full_name,
         avatarUrl: data.avatar_url,
-        createdAt: data.created_at
+        createdAt: data.created_at,
+        theme: data.theme || 'dark'
       } as UserProfile);
     } else {
       // Profile might not exist if user was just created, create it
       await this.createInitialProfile(userId);
     }
   }
+
+  
 
   async signOut(): Promise<void> {
     await this.supabase.auth.signOut();

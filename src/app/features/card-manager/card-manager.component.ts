@@ -4,6 +4,8 @@ import { AccountService } from '../../core/services/account.service';
 import { CurrencyMxnPipe } from '../../shared/pipes/currency-mxn.pipe';
 import { generateCardNumber, generateDynamicCvv, cvvSecondsRemaining, formatCardNumber } from '../../core/utils/card.utils';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { TransferModalComponent } from '../../shared/components/modal/transfer-modal.component';
+import { DepositModalComponent } from '../../shared/components/modal/deposit-modal.component';
 import { minAmount, maxAmount } from '../../shared/validators/financial.validators';
 
 /**
@@ -19,7 +21,7 @@ import { minAmount, maxAmount } from '../../shared/validators/financial.validato
 @Component({
   selector: 'app-card-manager',
   standalone: true,
-  imports: [CommonModule, CurrencyMxnPipe, ReactiveFormsModule],
+  imports: [CommonModule, CurrencyMxnPipe, ReactiveFormsModule, TransferModalComponent, DepositModalComponent],
   templateUrl: './card-manager.component.html',
   styleUrl: './card-manager.component.css',
 })
@@ -104,46 +106,6 @@ export class CardManagerComponent implements OnInit {
   }
 
   protected closeTransfer(): void { this.showTransferModal.set(false); }
-
-  protected async submitDeposit(): Promise<void> {
-    if (this.depositForm.invalid) return;
-    this.isProcessing.set(true);
-    const amount = Number(this.depositForm.value.amount);
-    const result = await this.accountService.deposit(amount);
-    this.isProcessing.set(false);
-    if (result.success) {
-      this.successMessage.set(`Depósito de ${amount} MXN realizado exitosamente.`);
-      this.depositForm.reset();
-      setTimeout(() => this.closeDeposit(), 1500);
-    } else {
-      this.errorMessage.set(result.error ?? 'Error al procesar el depósito.');
-    }
-  }
-
-  protected async submitTransfer(): Promise<void> {
-    if (this.transferForm.invalid) return;
-    this.isProcessing.set(true);
-    const amount = Number(this.transferForm.value.amount);
-    const card = this.card;
-    if (card && amount > card.transferLimit) {
-      this.errorMessage.set(`El monto excede tu límite de transferencia (${card.transferLimit} MXN).`);
-      this.isProcessing.set(false);
-      return;
-    }
-    const result = await this.accountService.deduct(
-      amount,
-      `Transferencia a ${this.transferForm.value.recipient}`,
-      'transfer_out',
-    );
-    this.isProcessing.set(false);
-    if (result.success) {
-      this.successMessage.set('Transferencia realizada exitosamente.');
-      this.transferForm.reset();
-      setTimeout(() => this.closeTransfer(), 1500);
-    } else {
-      this.errorMessage.set(result.error ?? 'Error al procesar la transferencia.');
-    }
-  }
 
   protected async saveLimit(): Promise<void> {
     if (this.limitForm.invalid) return;
