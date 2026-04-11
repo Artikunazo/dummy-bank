@@ -7,11 +7,14 @@ import { CreditServicesService } from '../../core/services/credit-services.servi
 import { InvestmentService } from '../../core/services/investment.service';
 import { CurrencyMxnPipe } from '../../shared/pipes/currency-mxn.pipe';
 import { TransferModalComponent } from '../../shared/components/modal/transfer-modal.component';
+import { PaymentModalComponent } from '../../shared/components/modal/payment-modal.component';
+import { AmortizationModalComponent } from '../../shared/components/modal/amortization-modal.component';
+import { CreditApplication } from '../../core/models';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, CurrencyMxnPipe, CarouselModule, TransferModalComponent],
+  imports: [CommonModule, RouterModule, CurrencyMxnPipe, CarouselModule, TransferModalComponent, PaymentModalComponent, AmortizationModalComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -22,29 +25,41 @@ export class DashboardComponent implements OnInit {
   private router = inject(Router);
 
   public showTransferModal = signal(false);
+  public showPaymentModal = signal(false);
+  public showAmortizationModal = signal(false);
+  public selectedCredit = signal<CreditApplication | null>(null);
 
-  public availableServices = [
+  private rawServices = [
     {
       title: 'Crédito Hipotecario',
       link: '/services/hipotecario',
-      image: 'assets/mortgage_service_card_1775809195991.png'
+      image: 'assets/mortgage_service_card_1775809195991.png',
+      type: 'mortgage'
     },
     {
       title: 'Crédito Automotriz',
       link: '/services/automotriz',
-      image: 'assets/auto_loan_service_card_1775809208547.png'
+      image: 'assets/auto_loan_service_card_1775809208547.png',
+      type: 'auto'
     },
     {
       title: 'Préstamo Personal',
       link: '/services/prestamo-personal',
-      image: 'assets/personal_loan_service_card_1775809223256.png'
+      image: 'assets/personal_loan_service_card_1775809223256.png',
+      type: 'personal_loan'
     },
     {
       title: 'Tarjeta de Crédito',
       link: '/services/tdc',
-      image: 'assets/credit_card_service_card_1775809237275.png'
+      image: 'assets/credit_card_service_card_1775809237275.png',
+      type: 'tdc'
     }
   ];
+
+  public get availableServices() {
+    const activeTypes = this.activeCredits.map(c => c.type);
+    return this.rawServices.filter(s => !activeTypes.includes(s.type as any));
+  }
 
   ngOnInit() {
     this.accountService.load();
@@ -66,5 +81,20 @@ export class DashboardComponent implements OnInit {
 
   goToInvestment(type: string) {
     this.router.navigate(['/investments', type]);
+  }
+
+  openPaymentModal(credit: CreditApplication) {
+    this.selectedCredit.set(credit);
+    this.showPaymentModal.set(true);
+  }
+
+  openAmortizationModal(credit: CreditApplication) {
+    this.selectedCredit.set(credit);
+    this.showAmortizationModal.set(true);
+  }
+
+  getRemainingDebt(credit: CreditApplication): number {
+    const paid = (credit.metadata as any)?.paidAmount || 0;
+    return Math.max(0, credit.requestedAmount - paid);
   }
 }

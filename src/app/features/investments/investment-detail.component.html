@@ -100,8 +100,7 @@
                    
                    <div class="max-w-xs mx-auto">
                       <input type="number" formControlName="amount" 
-                             class="w-full text-center text-3xl font-bold py-4 rounded-2xl bg-slate-950 border border-white/10 text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
-                             placeholder="5000" />
+                             class="w-full text-center text-3xl font-bold py-4 rounded-2xl bg-slate-950 border border-white/10 text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all" />
                    </div>
                    @if (investForm.get('amount')?.invalid && investForm.get('amount')?.touched) {
                       <p class="text-crimson-500 text-sm mt-3">Ingresa un monto válido mayor al mínimo permitido.</p>
