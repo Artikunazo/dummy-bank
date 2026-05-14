@@ -64,8 +64,7 @@ export class AuthService {
       .upsert({ 
         user_id: userId, 
         full_name: fakeName, 
-        avatar_url: avatarUrl, 
-        theme: 'dark' 
+        avatar_url: avatarUrl
       })
       .select()
       .single();
@@ -77,7 +76,7 @@ export class AuthService {
         fullName: data.full_name,
         avatarUrl: data.avatar_url,
         createdAt: data.created_at,
-        theme: data.theme || 'dark'
+        theme: 'dark'
       } as UserProfile);
       // Also create a base account 
       await this.supabase.from('accounts').insert({ user_id: userId, balance: 25000 });
@@ -98,7 +97,7 @@ export class AuthService {
         fullName: data.full_name,
         avatarUrl: data.avatar_url,
         createdAt: data.created_at,
-        theme: data.theme || 'dark'
+        theme: 'dark'
       } as UserProfile);
     } else {
       // Profile might not exist if user was just created, create it
